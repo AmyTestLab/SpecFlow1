@@ -23,8 +23,11 @@ namespace SpecFlow1.Pages
 
             try
             {
+                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+                IWebElement usernameTextbox = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("UserName")));
+
                 // Identify username textbox and enter valid username
-                IWebElement usernameTextbox = driver.FindElement(By.Id("UserName"));
+              //  IWebElement usernameTextbox = driver.FindElement(By.Id("UserName"));
                 usernameTextbox.SendKeys("hari");
             }
             catch (Exception ex)

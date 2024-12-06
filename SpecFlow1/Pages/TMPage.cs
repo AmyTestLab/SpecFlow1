@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SpecFlow1.Utilities;
 using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
 
 namespace SpecFlow1.Pages
 {
@@ -63,6 +64,8 @@ namespace SpecFlow1.Pages
             // Wait for record creation and go to last page
             IWebElement goToLastPageButton = WaitForElementToBeClickable(driver, By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
             goToLastPageButton.Click();
+
+       
         }
 
         // Helper method to get text of the last created record
@@ -87,10 +90,15 @@ namespace SpecFlow1.Pages
         // Edit time record
         public void EditTimeRecord(IWebDriver driver, string code, string description)
         {
-            // Go to the last page
-            IWebElement lastPageButton = WaitForElementToBeClickable(driver, By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
+            Thread.Sleep(5000);
+            IWebElement lastPageButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
             lastPageButton.Click();
-
+            Thread.Sleep(2000);
+            // Go to the last page
+            // IWebElement lastPageButton = WaitForElementToBeClickable(driver, By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
+            //  lastPageButton.Click();
+               
+  
             // Wait for the edit button and click it
             IWebElement editButton = WaitForElementToBeClickable(driver, By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[5]/a[1]"));
             editButton.Click();
@@ -99,18 +107,23 @@ namespace SpecFlow1.Pages
             IWebElement codeTextbox = WaitForElementToBeClickable(driver, By.Id("Code"));
             codeTextbox.Clear();
             codeTextbox.SendKeys(code);
+            Thread.Sleep(2000);
 
             IWebElement descriptionTextbox = WaitForElementToBeClickable(driver, By.Id("Description"));
             descriptionTextbox.Clear();
             descriptionTextbox.SendKeys(description);
+            Thread.Sleep(2000);
 
-            // Click Save
+            // Save the updated record
             IWebElement saveButton = WaitForElementToBeClickable(driver, By.Id("SaveButton"));
             saveButton.Click();
+            Thread.Sleep(2000);
 
-            // Go to the last page again
-            lastPageButton = WaitForElementToBeClickable(driver, By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
-            lastPageButton.Click();
+            // Wait for the lastPageButton to become clickable
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
+            IWebElement goToLastPage = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span")));
+            goToLastPage.Click();
+
         }
 
         // Get edited code

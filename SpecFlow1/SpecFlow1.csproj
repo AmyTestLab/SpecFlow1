@@ -29,7 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="StepDefinition\" />
     <Folder Include="Specflow1\" />
   </ItemGroup>
 

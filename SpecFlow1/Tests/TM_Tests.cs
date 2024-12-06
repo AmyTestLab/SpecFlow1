@@ -39,8 +39,8 @@ namespace SpecFlow1.Tests
             // Edit Time Record
 
             TMPage tMPageObj = new TMPage();
-            tMPageObj.EditTimeRecord(driver, "New Code", "Updated description");
-           // tMPageObj.EditTimeRecord(driver);
+            tMPageObj.EditTimeRecord(driver, "", "");
+          
         }
         [Test]
         public void DeleteTime_Test()
